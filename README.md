@@ -32,4 +32,4 @@ export default {
 
 ## License
 
-MIT &copy; [Irko. Palenius](https://codepen.io/ispal/)
+MIT
