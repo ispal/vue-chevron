@@ -1,0 +1,50 @@
+{
+  "name": "vue-chevron",
+  "version": "0.0.1",
+  "description": "Animated chevron toggle component",
+  "repository": {
+    "url": "ispal/vue-chevron",
+    "type": "git"
+  },
+  "main": "dist/vue-chevron.common.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm test && npm run build",
+    "test": "test-vue-app",
+    "build": "bili --compress umd",
+    "example": "poi",
+    "build:example": "poi build"
+  },
+  "author": {
+    "name": "Irko. Palenius",
+    "email": "ispal84@gmail.com"
+  },
+  "license": "MIT",
+  "poi": {
+    "entry": "example/index.js",
+    "dist": "example/dist",
+    "homepage": "./"
+  },
+  "bili": {
+    "format": [
+      "cjs",
+      "umd",
+      "es"
+    ],
+    "plugins": [
+      "vue"
+    ],
+    "vue": {
+      "css": "dist/vue-chevron.css"
+    }
+  },
+  "devDependencies": {
+    "poi": "^9.3.10",
+    "bili": "^0.18.2",
+    "test-vue-app": "^1.0.0",
+    "vue-test-utils": "^1.0.0-beta.2",
+    "rollup-plugin-vue": "^2.5.2"
+  }
+}
