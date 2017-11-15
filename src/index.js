@@ -1,19 +1,15 @@
-var animationId;
+let animationId;
 let lastTime = null;
-const topPoint = 8;
-const topPointReverse = 22;
-const centerTopPoint = 22;
-const centerTopPointReverse = 8;
 
-function inOutCirc(n) {
-  n *= 2
-  if (n < 1) return -0.5 * (Math.sqrt(1 - n * n) - 1);
-  return 0.5 * (Math.sqrt(1 - (n -= 2) * n) + 1);
+function inOutCirc(t) {
+  var c = 1;
+  if ((t /= 0.5) < 1) return -0.5 * (Math.sqrt(1 - t * t) - 1);
+  return 0.5 * (Math.sqrt(1 - (t -= 2) * t) + 1);
 }
 
 function animate(duration, component) {
   lastTime = component.progress <= 1 ? performance.now() : lastTime;
-  const animation = (t) => {
+  const animation = t => {
     let progress = (t - lastTime) / duration;
     if (progress >= 1) {
       window.cancelAnimationFrame(animationId);
@@ -23,29 +19,34 @@ function animate(duration, component) {
     }
     component.progress = component.easing(progress);
     animationId = window.requestAnimationFrame(animation);
-  }
+  };
   animationId = window.requestAnimationFrame(animation);
 }
 
-function calculatePosition(isDown, progress, lastClickProgress, point, pointReverse) {
+function calculatePosition(
+  pointDown,
+  progress,
+  lastClickProgress,
+  height,
+  viewBoxCenterY
+) {
+  let progressWithClick =
+    lastClickProgress === 1 ? progress : progress + (1 - lastClickProgress);
 
-  let progressWithClick = lastClickProgress === 1
-    ? progress
-    : progress + (1 - lastClickProgress);
-
-  if(progressWithClick >= 1) {
+  if (progressWithClick >= 1) {
     progressWithClick = 1;
   }
 
-  return isDown
-      ? pointReverse - progressWithClick * (pointReverse - point)
-      : point + progressWithClick * (pointReverse - point);
+  const topY = viewBoxCenterY + height / 2 - progressWithClick * height;
+  const bottomY = viewBoxCenterY - height / 2 + progressWithClick * height;
+
+  return pointDown ? topY : bottomY;
 }
 
 export default {
-  name: 'ChevronToggle',
+  name: "VueChevron",
   props: {
-    isDown: {
+    pointDown: {
       type: Boolean,
       default: true
     },
@@ -57,6 +58,14 @@ export default {
       type: Number,
       default: 4
     },
+    angle: {
+      type: Number,
+      default: 40
+    },
+    roundEdges: {
+      type: Boolean,
+      default: true
+    },
     easing: {
       type: Function,
       default: inOutCirc
@@ -67,42 +76,82 @@ export default {
       progress: 1,
       clickProgress: 1,
       reverse: false,
-      animFinished: true
+      lineLength: 30
     };
   },
   computed: {
     path() {
       const progress = this.progress;
-      const sidesTop = calculatePosition(this.isDown, progress, this.clickProgress, topPoint, topPointReverse);
-      const sidesBottom = calculatePosition(this.isDown, progress, this.clickProgress, topPoint + this.thickness, topPointReverse + this.thickness);
-      const centerTop = calculatePosition(this.isDown, progress, this.clickProgress, centerTopPoint, centerTopPointReverse);
-      const centerBottom = calculatePosition(this.isDown, progress, this.clickProgress, centerTopPoint + this.thickness, centerTopPointReverse + this.thickness);
-
-      return `M2.5,${sidesTop}, 2.5,${sidesBottom}, 25,${centerBottom}, 48,${sidesBottom}, 48,${sidesTop}, 25,${centerTop}Z`;
+      const { width, height } = this.triangleSideLenghts;
+      const sidesY = calculatePosition(
+        this.pointDown,
+        progress,
+        this.clickProgress,
+        this.triangleSideLenghts.height,
+        this.viewBoxCenter.y
+      );
+      const centerY = calculatePosition(
+        !this.pointDown,
+        progress,
+        this.clickProgress,
+        this.triangleSideLenghts.height,
+        this.viewBoxCenter.y
+      );
+      return `M${this.viewBoxCenter.x - width},${sidesY}, ${this.viewBoxCenter
+        .x},${centerY} ${this.viewBoxCenter.x + width},${sidesY}`;
+    },
+    triangleSideLenghts() {
+      const height = this.lineLength * Math.sin(this.angle * (Math.PI / 180));
+      const width = this.lineLength * Math.cos(this.angle * (Math.PI / 180));
+      return {
+        width,
+        height
+      };
+    },
+    viewBoxCenter() {
+      const { width, height } = this.viewBoxSize;
+      return { x: width / 2, y: height / 2 };
+    },
+    viewBoxSize() {
+      const width = Math.ceil(this.lineLength * 2 + this.thickness * 2);
+      const height = Math.ceil(
+        this.lineLength * 2 * Math.sin(this.angle * (Math.PI / 180)) +
+          this.thickness * 2
+      );
+      return { width, height };
     }
   },
   watch: {
-    isDown: function(val) {
+    pointDown: function(val) {
       this.clickProgress = this.progress;
       this.progress = 0;
       window.cancelAnimationFrame(animationId);
       animate(this.duration, this);
-    },
+    }
   },
   render(h) {
-    return h('svg', {
-      attrs: {
-        xmlns: 'http://www.w3.org/2000/svg',
-        viewBox: '0 0 50 30'
-      }
-    }, [
-      h('title', 'vue-chevron'),
-      h('path', {
+    return h(
+      "svg",
+      {
         attrs: {
-          d: this.path
+          height: 50,
+          width: 50,
+          xmlns: "http://www.w3.org/2000/svg",
+          viewBox: `0 0 ${this.viewBoxSize.width} ${this.viewBoxSize.height}`
         }
-      })
-    ]);
+      },
+      [
+        h("title", "vue-chevron"),
+        h("path", {
+          attrs: {
+            d: this.path,
+            fill: "none",
+            "stroke-linecap": this.roundEdges ? "round" : "square",
+            "stroke-width": this.thickness,
+            stroke: "currentColor"
+          }
+        })
+      ]
+    );
   }
 };
-
