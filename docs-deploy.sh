@@ -3,7 +3,7 @@ set -e
 
 # setup ssh-agent and provide the GitHub deploy key
 eval "$(ssh-agent -s)"
-openssl aes-256-cbc -K $encrypted_5a854664d625_key -iv $encrypted_5a854664d625_key -in github_deploy_key.enc -out github_deploy_key -d
+openssl aes-256-cbc -K $encrypted_5a854664d625_key -iv $encrypted_5a854664d625_iv -in github_deploy_key.enc -out github_deploy_key -d
 chmod 600 github_deploy_key
 ssh-add github_deploy_key
 
