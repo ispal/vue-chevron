@@ -7,9 +7,8 @@
     "type": "git"
   },
   "main": "dist/vue-chevron.common.js",
-  "files": [
-    "dist"
-  ],
+  "module": "dist/vue-chevron.es.js",
+  "files": ["dist"],
   "scripts": {
     "prepublishOnly": "npm test && npm run build",
     "test": "test-vue-app",
@@ -17,7 +16,8 @@
     "example": "poi",
     "build:example": "poi build",
     "commit": "git-cz",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release":
+      "semantic-release pre && npm publish && semantic-release post"
   },
   "author": {
     "name": "Ispal",
@@ -30,14 +30,8 @@
     "homepage": "./"
   },
   "bili": {
-    "format": [
-      "cjs",
-      "umd",
-      "es"
-    ],
-    "plugins": [
-      "vue"
-    ],
+    "format": ["cjs", "umd", "es"],
+    "plugins": ["vue"],
     "vue": {
       "css": "dist/vue-chevron.css"
     }
