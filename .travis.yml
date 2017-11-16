@@ -22,6 +22,6 @@ after_success:
 deploy:
   - provider: script
     skip_cleanup: true # do not delete the built assets
-    script: ./.travis-deploy.sh
+    script: sh $TRAVIS_BUILD/.docs-deploy.sh
     on:
       branch: master
