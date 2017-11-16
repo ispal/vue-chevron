@@ -10,7 +10,7 @@ node_js:
 before_install:
   - npm i -g npm
 script:
-  - npm run test && npm run build:example
+  - npm run test && npm run build && npm run build:example
 after_success:
   - npm run semantic-release
 branches:
