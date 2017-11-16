@@ -1,6 +1,6 @@
 # vue-chevron
 
-[![NPM version](https://img.shields.io/npm/v/vue-chevron.svg?style=flat)](https://npmjs.com/package/vue-chevron) [![NPM downloads](https://img.shields.io/npm/dm/vue-chevron.svg?style=flat)](https://npmjs.com/package/vue-chevron) [![CircleCI](https://circleci.com/gh/ispal/vue-chevron/tree/master.svg?style=shield)](https://circleci.com/gh/ispal/vue-chevron/tree/master)
+[![NPM version](https://img.shields.io/npm/v/vue-chevron.svg?style=flat)](https://npmjs.com/package/vue-chevron) [![NPM downloads](https://img.shields.io/npm/dm/vue-chevron.svg?style=flat)](https://npmjs.com/package/vue-chevron) [![Build Status](https://travis-ci.org/ispal/vue-chevron.svg?branch=master)](https://travis-ci.org/ispal/vue-chevron)
 
 Animated chevron toggle component
 
