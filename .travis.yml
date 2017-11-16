@@ -1,4 +1,3 @@
-sudo: false
 language: node_js
 cache:
   directories:
@@ -22,6 +21,6 @@ after_success:
 deploy:
   - provider: script
     skip_cleanup: true # do not delete the built assets
-    script: sh $TRAVIS_BUILD/.docs-deploy.sh
+    script: sh $TRAVIS_BUILD/docs-deploy.sh
     on:
       branch: master
