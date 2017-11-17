@@ -8,29 +8,15 @@
   },
   "main": "dist/vue-chevron.common.js",
   "module": "dist/vue-chevron.es.js",
+  "unpkg": "dist/vue-chevron.min.js",
   "files": ["dist"],
-  "release": {
-    "branchTags": {
-      "develop": "dev"
-    },
-    "fallbackTags": {
-      "master": "latest"
-    },
-    "analyzeCommits": "@telerik/semantic-prerelease/analyzeCommits",
-    "generateNotes": "@telerik/semantic-prerelease/generateNotes",
-    "getLastRelease": "@telerik/semantic-prerelease/getLastRelease",
-    "verifyConditions": "@telerik/semantic-prerelease/verifyConditions",
-    "verifyRelease": "@telerik/semantic-prerelease/verifyRelease"
-  },
   "scripts": {
     "prepublishOnly": "npm test && npm run build",
     "test": "test-vue-app",
-    "build": "bili --compress umd",
+    "build": "bili --compress umd --module-name VueChevron",
     "example": "poi",
     "build:example": "poi build",
-    "commit": "git-cz",
-    "semantic-release":
-      "semantic-release pre && semantic-prerelease publish && semantic-release post"
+    "prepublish": "npm run build"
   },
   "author": {
     "name": "Ispal",

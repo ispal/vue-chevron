@@ -6,16 +6,18 @@ cache:
 notifications:
   email: false
 node_js:
-- '8'
+  - '8'
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+before_script:
+  - npm prune
 script:
-- npm run test
-- npm run build
-- npm run build:example
+  - npm run test
+  - npm run build
+  - npm run build:example
 after_success:
-- npm run semantic-release
+  - npm run semantic-release
 deploy:
   - provider: script
     skip_cleanup: true # do not delete the built assets
