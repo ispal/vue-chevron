@@ -8,15 +8,16 @@
   },
   "main": "dist/vue-chevron.common.js",
   "module": "dist/vue-chevron.es.js",
-  "unpkg": "dist/vue-chevron.min.js",
   "files": ["dist"],
   "scripts": {
     "prepublishOnly": "npm test && npm run build",
     "test": "test-vue-app",
-    "build": "bili --compress umd --module-name VueChevron",
+    "build": "bili --compress umd --module-name",
     "example": "poi",
     "build:example": "poi build",
-    "prepublish": "npm run build"
+    "commit": "git-cz",
+    "prepublish": "npm run test && npm run build && npm run build:example",
+    "publish": "gh-pages -d docs/ -b gh-pages"
   },
   "author": {
     "name": "Ispal",
