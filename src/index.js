@@ -82,25 +82,25 @@ export default {
   computed: {
     path() {
       const progress = this.progress;
-      const { width, height } = this.triangleSideLenghts;
+      const { width, height } = this.triangleSideLengths;
       const sidesY = calculatePosition(
         this.pointDown,
         progress,
         this.clickProgress,
-        this.triangleSideLenghts.height,
+        this.triangleSideLengths.height,
         this.viewBoxCenter.y
       );
       const centerY = calculatePosition(
         !this.pointDown,
         progress,
         this.clickProgress,
-        this.triangleSideLenghts.height,
+        this.triangleSideLengths.height,
         this.viewBoxCenter.y
       );
       return `M${this.viewBoxCenter.x - width},${sidesY}, ${this.viewBoxCenter
         .x},${centerY} ${this.viewBoxCenter.x + width},${sidesY}`;
     },
-    triangleSideLenghts() {
+    triangleSideLengths() {
       const height = this.lineLength * Math.sin(this.angle * (Math.PI / 180));
       const width = this.lineLength * Math.cos(this.angle * (Math.PI / 180));
       return {

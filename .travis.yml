@@ -8,8 +8,8 @@ notifications:
 node_js:
 - '8'
 branches:
-  only:
-  - master
+  except:
+    - /^v\d+\.\d+\.\d+$/
 script:
 - npm run test
 - npm run build
