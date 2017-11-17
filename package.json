@@ -32,6 +32,8 @@
     "homepage": "./"
   },
   "bili": {
+    "moduleName": "VueChevron",
+    "banner": true,
     "format": [
       "cjs",
       "umd",
