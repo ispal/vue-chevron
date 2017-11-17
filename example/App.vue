@@ -204,14 +204,7 @@ html {
 }
 body {
   height: 100%;
-  background-image: linear-gradient(
-    to right top,
-    #1720e5,
-    #242be8,
-    #2e35ec,
-    #373eef,
-    #3f47f2
-  );
+  background-image: linear-gradient(to right top, #15315c, #2e5381, #4778a8, #629ecf, #7ec7f6);
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-size: 1em;

@@ -56,7 +56,7 @@ export default {
     },
     thickness: {
       type: Number,
-      default: 4
+      default: 2
     },
     angle: {
       type: Number,

@@ -18,7 +18,9 @@
     "example": "poi",
     "build:example": "poi build",
     "commit": "git-cz",
-    "prepublish": "npm run test && npm run build && npm run build:example",
+    "preversion": "npm run test",
+    "postversion": "git push --tags && npm publish",
+    "prepublish": "npm run build && npm run build:example",
     "publish": "gh-pages -d docs/ -b gh-pages"
   },
   "author": {
