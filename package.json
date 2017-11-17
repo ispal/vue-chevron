@@ -14,7 +14,7 @@
       "develop": "dev"
     },
     "fallbackTags": {
-      "dev": "latest"
+      "master": "latest"
     },
     "analyzeCommits": "@telerik/semantic-prerelease/analyzeCommits",
     "generateNotes": "@telerik/semantic-prerelease/generateNotes",
