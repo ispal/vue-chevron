@@ -1,6 +1,6 @@
 {
   "name": "vue-chevron",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Animated chevron toggle component",
   "repository": {
     "url": "https://github.com/ispal/vue-chevron",
@@ -18,10 +18,7 @@
     "example": "poi",
     "build:example": "poi build",
     "commit": "git-cz",
-    "preversion": "npm run test",
-    "postversion": "git push --tags && npm publish",
-    "prepublish": "npm run build && npm run build:example",
-    "publish": "gh-pages -d docs/ -b gh-pages",
+    "publish-docs": "gh-pages -d docs/ -b gh-pages",
     "release": "release-it"
   },
   "author": {
