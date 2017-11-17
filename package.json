@@ -9,8 +9,18 @@
   "main": "dist/vue-chevron.common.js",
   "module": "dist/vue-chevron.es.js",
   "files": ["dist"],
-  "publishConfig": {
-    "tag": "dev"
+  "release": {
+    "branchTags": {
+      "develop": "dev"
+    },
+    "fallbackTags": {
+      "dev": "latest"
+    },
+    "analyzeCommits": "@telerik/semantic-prerelease/analyzeCommits",
+    "generateNotes": "@telerik/semantic-prerelease/generateNotes",
+    "getLastRelease": "@telerik/semantic-prerelease/getLastRelease",
+    "verifyConditions": "@telerik/semantic-prerelease/verifyConditions",
+    "verifyRelease": "@telerik/semantic-prerelease/verifyRelease"
   },
   "scripts": {
     "prepublishOnly": "npm test && npm run build",
@@ -20,7 +30,7 @@
     "build:example": "poi build",
     "commit": "git-cz",
     "semantic-release":
-      "semantic-release pre && npm publish && semantic-release post"
+      "semantic-release pre && semantic-prerelease publish && semantic-release post"
   },
   "author": {
     "name": "Ispal",
@@ -40,6 +50,7 @@
     }
   },
   "devDependencies": {
+    "@telerik/semantic-prerelease": "1.2.1",
     "bili": "0.18.2",
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.1.0",
