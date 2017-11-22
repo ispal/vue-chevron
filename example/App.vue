@@ -1,145 +1,25 @@
 <template>
   <div id="app">
-    <div class="content">
-      <h1>vue chevron</h1>
-      <div class="code">
-        <div>
-          <div class="preview">
-            <h2>Preview - click chevron</h2>
-            <div class="preview__wrapper">
-              <div class="preview__svg" @click="toggle" :style="`color: ${color}; font-size: ${fontSize}px`">
-                <vue-chevron
-                  :point-down="pointDown"
-                  :duration="duration"
-                  :thickness="thickness"
-                  :angle="angle"
-                  :round-edges="roundEdges"
-                  :easing="easing"
-                />
-              </div>
-            </div>
-          </div>
-          <h2>Code example</h2>
-          <div class="code__preview">
-            <prism language="html">
-&lt;template&gt;
-  &lt;div class="example" @click="toggle"&gt;
-    &lt;vue-chevron
-      :point-down="pointDown"
-      :duration="duration"
-      :thickness="thickness"
-      :angle="angle"
-      :round-edges="roundEdges"
-    /&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-import VueChevron from 'vue-chevron';
-
-export default {
-  name: 'App',
-  components: {
-    VueChevron
-  },
-  data() {
-    return {
-      pointDown: {{pointDown}},
-      thickness: {{ thickness }},
-      duration: {{ duration }},
-      angle: {{ angle }},
-      roundEdges: {{ roundEdges }},
-      easing: {{ easing }}
-    };
-  },
-  methods: {
-    toggle() {
-      this.pointDown = !this.pointDown;
-    }
-  }
-}
-&lt;/script&gt;
-
-&lt;style&gt;
-.example {
-  color: {{ color }};
-  font-size: {{ fontSize }}px;
-}
-&lt;/style&gt;
-            </prism>
-          </div>
-
+    <div class="bg-pattern"></div>
+    <div class="wrap container-fluid">
+      <h1>Vue Chevron</h1>
+      <div class="row center-xs badges">
+        <div class="col-xs-12 col-sm-8">
+          <img src="https://img.shields.io/npm/v/vue-chevron.svg?style=flat" alt="Version" data-canonical-src="https://img.shields.io/npm/v/vue-chevron.svg?style=flat" style="max-width: 100%;">
+          <img src="https://img.shields.io/npm/dm/vue-chevron.svg" alt="npm downloads" data-canonical-src="https://img.shields.io/npm/dm/vue-chevron.svg" style="max-width: 100%;">
+          <img src="https://img.shields.io/david/ispal/vue-chevron.svg?style=flat" alt="No Dependencies" data-canonical-src="https://img.shields.io/david/ispal/vue-chevron.svg?style=flat" style="max-width: 100%;">
+          <img src="https://img.shields.io/npm/l/vue-chevron.svg?style=flat" alt="License" data-canonical-src="https://img.shields.io/npm/l/vue-chevron.svg?style=flat" style="max-width: 100%;">
         </div>
-        <div class="props">
-          <div>
-            <h2>Demo settings</h2>
-            <div class="demo-settings">
-              <div>
-                <label>Color</label>
-                <input type="color" v-model="color">
-              </div>
-              <div>
-                <label>Font size ({{fontSize}}px)</label>
-                <input type="range" v-model.number="fontSize" min="10" max="100" step="1">
-              </div>
-            </div>
-          </div>
-          <h2>Props</h2>
-          <form>
-            <table>
-              <tr>
-                <th>Prop</th>
-                <th>Default value</th>
-              </tr>
-              <tr>
-                <td>
-                  <label>Duration ({{ duration }}ms)</label>
-                  <input type="range" v-model.number="duration" min="200" max="2000" step="100">
-                </td>
-                <td>1000</td>
-              </tr>
-              <tr>
-                <td>
-                  <label>Thickness ({{thickness}})</label>
-                  <input type="range" v-model.number="thickness" min="1" max="50" step="1">
-                </td>
-                <td>8</td>
-              </tr>
-              <tr>
-                <td>
-                  <label>Angle ({{angle}}&deg;)</label>
-                  <input type="range" v-model.number="angle" min="10" max="60" step="1">
-                </td>
-                <td>40</td>
-              </tr>
-              <tr>
-                <td>
-                  <label>Round edges</label>
-                  <switches v-model="roundEdges" theme="bulma" color="primary"></switches>
-                </td>
-                <td>true</td>
-              </tr>
-              <tr>
-                <td>
-                  <label>Easings</label>
-                  <select v-model="selectedEasing">
-                    <option
-                      v-for="(ease, index) in easings"
-                      :value="ease.value"
-                      :key="index"
-                    >
-                      {{ ease.label }}
-                    </option>
-                  </select>
-                  <div>
-                    <small>Not included to keep size minimum</small>
-                    <a href="https://github.com/mattdesl/eases" target="_blank">Easing functions</a>
-                  </div>
-                </td>
-                <td><a href="http://easings.net/#easeInOutCirc" target="_blank">circInOut</a></td>
-              </tr>
-            </table>
-          </form>
+      </div>
+      <div class="demo">
+        <preview />
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <code-preview />
+        </div>
+        <div class="col-xs-12 col-sm-6 first-xs last-sm ">
+          <props />
         </div>
       </div>
     </div>
@@ -147,54 +27,31 @@ export default {
 </template>
 
 <script>
-import "prismjs";
-import "prismjs/themes/prism-okaidia.css";
-import Prism from "vue-prism-component";
-import eases from "eases";
-import Switches from "vue-switches";
+import sharedState from "./sharedState";
 
-import VueChevron from "../src";
+import CodePreview from "./CodePreview";
+import Preview from "./Preview";
+import Props from "./Props";
 
-const easings = Object.keys(eases).map(ease => {
-  return {
-    label: ease,
-    value: ease
-  };
-});
 export default {
   components: {
-    VueChevron,
-    Prism,
-    Switches
+    CodePreview,
+    Preview,
+    Props
   },
   data() {
     return {
-      pointDown: true,
-      thickness: 8,
-      duration: 1000,
-      roundEdges: true,
-      angle: 40,
-      easings,
-      selectedEasing: "circInOut",
-      color: "#ffffff",
-      fontSize: 50
+      sharedState
     };
-  },
-  computed: {
-    easing() {
-      return eases[this.selectedEasing];
-    }
-  },
-  methods: {
-    toggle() {
-      this.pointDown = !this.pointDown;
-    }
   }
 };
 </script>
 
 <style lang="scss">
+$gutter-width: 2rem;
+
 @import "~normalize.css/normalize.css";
+@import "~flexboxgrid-sass/flexboxgrid";
 
 * {
   box-sizing: border-box;
@@ -204,29 +61,60 @@ html {
 }
 body {
   height: 100%;
-  background-image: linear-gradient(to right top, #15315c, #2e5381, #4778a8, #629ecf, #7ec7f6);
+  background-image: linear-gradient(
+    to right top,
+    #3f0971,
+    #0056b9,
+    #0090db,
+    #00c5d8,
+    #00f6c0
+  );
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-size: 1em;
   font-family: "Montserrat", sans-serif;
   margin: 0;
-  color: white;
-  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.bg-pattern {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #dfdbe5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%239C92AC' fill-opacity='0.4' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.2;
+}
+#app {
+  margin: 2em auto;
+  padding: 1em 0;
+  max-width: 1400px;
 }
 h1 {
+  margin-top: 0;
+  margin-bottom: 0.2em;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(black, 0.4);
   text-align: center;
 }
-h1,
 h2,
 h3 {
-  font-family: "Permanent Marker", cursive;
-  letter-spacing: 0.15em;
-  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.8);
   margin-top: 0;
+  color: #00c5d8;
+}
+h2,
+h3 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.75em;
 }
 a {
   position: relative;
-  color: #f1b24b;
+  color: #0056b9;
   text-decoration: none;
 }
 a:before {
@@ -236,7 +124,7 @@ a:before {
   left: 0;
   height: 1px;
   width: 100%;
-  background: white;
+  background: #00f6c0;
   opacity: 0;
   transform-origin: 0 0;
   transform: scale(0, 1);
@@ -245,7 +133,7 @@ a:after {
   content: "";
   position: absolute;
   left: 100%;
-  background: white;
+  background: #00f6c0;
   top: 105%;
   opacity: 0;
   width: 1px;
@@ -266,78 +154,21 @@ a:hover:after {
 small {
   font-size: 0.75em;
 }
-#app {
-  width: 90%;
-  margin: 1em auto 0;
-  max-width: 1200px;
-}
-.demo-settings {
-  display: flex;
-  margin-bottom: 3em;
-}
-.demo-settings > div {
-  width: 50%;
-}
-.code {
-  display: flex;
-  justify-content: space-between;
-  padding: 1em;
-}
-.code > * {
-  width: 48%;
-}
-.code__preview {
-  text-align: center;
-  font-size: 0.8em;
-}
-.props__item {
-  margin: 1em 0;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th {
-  padding: 1em 0.5em;
-  font-weight: bold;
-  border-bottom: 1px solid white;
-}
-td {
-  width: 50%;
-  padding: 1em 0.5em;
-  border-bottom: 1px solid white;
-  vertical-align: top;
-}
-
-td:not(:first-child) {
-  background: rgba(white, 0.1);
-  border-left: 1px solid white;
-}
-
 label {
   display: block;
   margin-bottom: 1em;
 }
-.preview {
+.m-b {
   margin-bottom: 2em;
-  background: rgba(white, 0.1);
-  padding: 1.5em 1.5em 1.5em 1.5em;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
-.preview__wrapper {
-  width: 100%;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
+.box {
+  background: white;
+  padding: 1em;
+  box-shadow: 0 1px 4px rgba(black, 0.4);
+  border-radius: 3px;
+  margin-bottom: 2em;
 }
-.preview__svg {
-  background: rgba(0, 0, 0, 0.2);
-  width: 1em;
-  height: 1em;
-  cursor: pointer;
-}
-svg {
-  width: 1em;
-  height: 1em;
+.badges {
+  margin-bottom: 2em;
 }
 </style>
