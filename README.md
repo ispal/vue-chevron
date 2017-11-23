@@ -1,13 +1,14 @@
 # vue-chevron
 
 [![NPM version](https://img.shields.io/npm/v/vue-chevron.svg?style=flat)](https://npmjs.com/package/vue-chevron) [![NPM downloads](https://img.shields.io/npm/dm/vue-chevron.svg?style=flat)](https://npmjs.com/package/vue-chevron)
+[![NPM dependencies](https://img.shields.io/david/ispal/vue-chevron.svg?style=flat)](https://npmjs.com/package/vue-chevron)
 
 Animated chevron toggle component
 
 ## Install
 
 ```bash
-yarn add vue-chevron
+npm install vue-chevron
 ```
 
 CDN: [UNPKG](https://unpkg.com/vue-chevron/) | [jsDelivr](https://cdn.jsdelivr.net/npm/vue-chevron/) (available as `window.VueChevron`)
