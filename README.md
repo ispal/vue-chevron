@@ -6,7 +6,7 @@
 Animated chevron toggle component
 
 ## Demo
-[ispal.github.io/vue-chevron/](ispal.github.io/vue-chevron/)
+[https://ispal.github.io/vue-chevron/](ispal.github.io/vue-chevron/)
 ## Install
 
 ```bash
