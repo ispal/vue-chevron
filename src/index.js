@@ -97,8 +97,9 @@ export default {
         this.triangleSideLengths.height,
         this.viewBoxCenter.y
       );
-      return `M${this.viewBoxCenter.x - width},${sidesY}, ${this.viewBoxCenter
-        .x},${centerY} ${this.viewBoxCenter.x + width},${sidesY}`;
+      return `M${this.viewBoxCenter.x - width},${sidesY}, ${
+        this.viewBoxCenter.x
+      },${centerY} ${this.viewBoxCenter.x + width},${sidesY}`;
     },
     triangleSideLengths() {
       const height = this.lineLength * Math.sin(this.angle * (Math.PI / 180));
@@ -148,6 +149,7 @@ export default {
             fill: "none",
             "stroke-linecap": this.roundEdges ? "round" : "square",
             "stroke-width": this.thickness,
+            "stroke-linejoin": this.roundEdges ? "round" : "square",
             stroke: "currentColor"
           }
         })
