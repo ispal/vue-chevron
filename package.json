@@ -8,9 +8,7 @@
   },
   "main": "dist/vue-chevron.common.js",
   "module": "dist/vue-chevron.es.js",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "prepublishOnly": "npm test && npm run build",
     "test": "test-vue-app",
@@ -34,37 +32,31 @@
   "bili": {
     "moduleName": "VueChevron",
     "banner": true,
-    "format": [
-      "cjs",
-      "umd",
-      "es"
-    ],
-    "plugins": [
-      "vue"
-    ],
+    "format": ["cjs", "umd", "es"],
+    "plugins": ["vue"],
     "vue": {
       "css": "dist/vue-chevron.css"
     }
   },
   "devDependencies": {
-    "bili": "0.18.2",
+    "bili": "0.19.0",
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.1.0",
     "eases": "1.0.8",
     "flexboxgrid-sass": "8.0.5",
     "gh-pages": "1.1.0",
-    "node-sass": "4.6.1",
+    "node-sass": "4.7.2",
     "normalize.css": "7.0.0",
-    "poi": "9.5.2",
+    "poi": "9.5.4",
     "prism-themes": "1.0.0",
     "prismjs": "1.8.4",
-    "release-it": "4.4.1",
+    "release-it": "5.0.0",
     "rollup-plugin-vue": "2.5.2",
     "sass-loader": "6.0.6",
     "test-vue-app": "1.0.0",
     "vue-prism-component": "1.0.1",
     "vue-switches": "2.0.1",
-    "vue-test-utils": "1.0.0-beta.5"
+    "vue-test-utils": "1.0.0-beta.6"
   },
   "config": {
     "commitizen": {
