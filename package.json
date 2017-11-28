@@ -1,6 +1,6 @@
 {
   "name": "vue-chevron",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Animated chevron toggle component",
   "repository": {
     "url": "https://github.com/ispal/vue-chevron",
@@ -8,7 +8,9 @@
   },
   "main": "dist/vue-chevron.common.js",
   "module": "dist/vue-chevron.es.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prepublishOnly": "npm test && npm run build",
     "test": "test-vue-app",
@@ -32,8 +34,14 @@
   "bili": {
     "moduleName": "VueChevron",
     "banner": true,
-    "format": ["cjs", "umd", "es"],
-    "plugins": ["vue"],
+    "format": [
+      "cjs",
+      "umd",
+      "es"
+    ],
+    "plugins": [
+      "vue"
+    ],
     "vue": {
       "css": "dist/vue-chevron.css"
     }
