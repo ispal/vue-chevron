@@ -6,6 +6,11 @@
     "url": "https://github.com/ispal/vue-chevron",
     "type": "git"
   },
+  "keywords": [
+    "vue",
+    "component",
+    "svg"
+  ],
   "main": "dist/vue-chevron.common.js",
   "module": "dist/vue-chevron.es.js",
   "files": [

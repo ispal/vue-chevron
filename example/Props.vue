@@ -60,7 +60,7 @@
             </div>
           </td>
           <td>Function</td>
-          <td><a href="http://easings.net/#easeInOutCirc" target="_blank">linear</a></td>
+          <td>linear</td>
         </tr>
       </table>
     </form>
