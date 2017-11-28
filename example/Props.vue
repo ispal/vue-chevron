@@ -14,7 +14,7 @@
             <input type="range" v-model.number="sharedState.duration" min="200" max="2000" step="100">
           </td>
           <td>Number</td>
-          <td>1000</td>
+          <td>300</td>
         </tr>
         <tr>
           <td>
@@ -53,12 +53,14 @@
               </option>
             </select>
             <div>
-              <small>Not included to keep size minimum</small>
-              <a href="https://github.com/mattdesl/eases" target="_blank">Easing functions</a>
+              <small>These are here only for the demo. Easings are not included to keep the library size minimum. Pass in your own easing functions to get the desired effect.</small>
+              <p>
+                Check eg. <a href="https://github.com/mattdesl/eases" target="_blank">Easing functions</a>
+              </p>
             </div>
           </td>
           <td>Function</td>
-          <td><a href="http://easings.net/#easeInOutCirc" target="_blank">circInOut</a></td>
+          <td><a href="http://easings.net/#easeInOutCirc" target="_blank">linear</a></td>
         </tr>
       </table>
     </form>

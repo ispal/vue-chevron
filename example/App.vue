@@ -11,7 +11,7 @@
           <img src="https://img.shields.io/npm/l/vue-chevron.svg?style=flat" alt="License" data-canonical-src="https://img.shields.io/npm/l/vue-chevron.svg?style=flat" style="max-width: 100%;">
         </div>
       </div>
-      <div class="btn-wrap">
+      <div class="btn-wrap m-b">
         <a href="https://github.com/ispal/vue-chevron" target="_blank" rel="noopener" class="btn">
           <svg class="icon icon-github" viewBox="0 0 24 28">
             <title>github</title>

@@ -1,10 +1,8 @@
 let animationId;
 let lastTime = null;
 
-function inOutCirc(t) {
-  var c = 1;
-  if ((t /= 0.5) < 1) return -0.5 * (Math.sqrt(1 - t * t) - 1);
-  return 0.5 * (Math.sqrt(1 - (t -= 2) * t) + 1);
+function linear(t) {
+  return t;
 }
 
 function animate(duration, component) {
@@ -52,7 +50,7 @@ export default {
     },
     duration: {
       type: Number,
-      default: 1000
+      default: 500
     },
     thickness: {
       type: Number,
@@ -68,7 +66,7 @@ export default {
     },
     easing: {
       type: Function,
-      default: inOutCirc
+      default: linear
     }
   },
   data() {
@@ -83,23 +81,24 @@ export default {
     path() {
       const progress = this.progress;
       const { width, height } = this.triangleSideLengths;
+      const { x, y } = this.viewBoxCenter;
+      const clickProgress = this.clickProgress;
+
       const sidesY = calculatePosition(
         this.pointDown,
         progress,
-        this.clickProgress,
-        this.triangleSideLengths.height,
-        this.viewBoxCenter.y
+        clickProgress,
+        height,
+        y
       );
       const centerY = calculatePosition(
         !this.pointDown,
         progress,
-        this.clickProgress,
-        this.triangleSideLengths.height,
-        this.viewBoxCenter.y
+        clickProgress,
+        height,
+        y
       );
-      return `M${this.viewBoxCenter.x - width},${sidesY}, ${
-        this.viewBoxCenter.x
-      },${centerY} ${this.viewBoxCenter.x + width},${sidesY}`;
+      return `M${x - width},${sidesY}, ${x},${centerY} ${x + width},${sidesY}`;
     },
     triangleSideLengths() {
       const height = this.lineLength * Math.sin(this.angle * (Math.PI / 180));
@@ -114,16 +113,18 @@ export default {
       return { x: width / 2, y: height / 2 };
     },
     viewBoxSize() {
-      const width = Math.ceil(this.lineLength * 2 + this.thickness * 2);
+      const lineLength = this.lineLength;
+      const thickness = this.thickness;
+
+      const width = Math.ceil(lineLength * 2 + thickness * 2);
       const height = Math.ceil(
-        this.lineLength * 2 * Math.sin(this.angle * (Math.PI / 180)) +
-          this.thickness * 2
+        lineLength * 2 * Math.sin(this.angle * (Math.PI / 180)) + thickness * 2
       );
       return { width, height };
     }
   },
   watch: {
-    pointDown: function(val) {
+    pointDown: function() {
       this.clickProgress = this.progress;
       this.progress = 0;
       window.cancelAnimationFrame(animationId);
@@ -131,14 +132,17 @@ export default {
     }
   },
   render(h) {
+    const lineCapAndJoin = this.roundEdges ? "round" : "square";
+    const { width, height } = this.viewBoxSize;
+
     return h(
       "svg",
       {
         attrs: {
-          height: 50,
-          width: 50,
+          height: 32,
+          width: 32,
           xmlns: "http://www.w3.org/2000/svg",
-          viewBox: `0 0 ${this.viewBoxSize.width} ${this.viewBoxSize.height}`
+          viewBox: `0 0 ${width} ${height}`
         }
       },
       [
@@ -147,9 +151,9 @@ export default {
           attrs: {
             d: this.path,
             fill: "none",
-            "stroke-linecap": this.roundEdges ? "round" : "square",
+            "stroke-linecap": lineCapAndJoin,
             "stroke-width": this.thickness,
-            "stroke-linejoin": this.roundEdges ? "round" : "square",
+            "stroke-linejoin": lineCapAndJoin,
             stroke: "currentColor"
           }
         })

@@ -9,11 +9,11 @@ const easings = Object.keys(eases).map(ease => {
 export default {
   pointDown: true,
   thickness: 8,
-  duration: 1000,
+  duration: 300,
   roundEdges: true,
   angle: 40,
   easings,
-  selectedEasing: "circInOut",
+  selectedEasing: "linear",
   color: "#ffffff",
   fontSize: 80
 };
