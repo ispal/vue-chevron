@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "bili": "0.19.0",
-    "commitizen": "2.9.6",
+    "commitizen": "4.3.0",
     "cz-conventional-changelog": "2.1.0",
     "eases": "1.0.8",
     "flexboxgrid-sass": "8.0.5",
